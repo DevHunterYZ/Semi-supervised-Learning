@@ -9,21 +9,21 @@ test = pd.read_csv('/test.csv')
 train['Item_Weight'].fillna((train['Item_Weight'].mean()), inplace=True)
 test['Item_Weight'].fillna((test['Item_Weight'].mean()), inplace=True)
 
-### yağ içeriğini sadece iki kategoriye indirgemek
+### Yağ içeriğini sadece iki kategoriye indirgemek
 train['Item_Fat_Content'] = train['Item_Fat_Content'].replace(['low fat','LF'], ['Low Fat','Low Fat']) 
 train['Item_Fat_Content'] = train['Item_Fat_Content'].replace(['reg'], ['Regular']) 
 test['Item_Fat_Content'] = test['Item_Fat_Content'].replace(['low fat','LF'], ['Low Fat','Low Fat']) 
 test['Item_Fat_Content'] = test['Item_Fat_Content'].replace(['reg'], ['Regular'])
 
-## kuruluş yılı hesaplamak için
+## Kuruluş yılı hesaplamak için
 train['Outlet_Establishment_Year'] = 2013 - train['Outlet_Establishment_Year'] 
 test['Outlet_Establishment_Year'] = 2013 - test['Outlet_Establishment_Year']
 
-### boyut için eksik değerler
+### Boyut için eksik değerler
 train['Outlet_Size'].fillna('Small',inplace=True)
 test['Outlet_Size'].fillna('Small',inplace=True)
 
-### etiket kodlaması.
+### Etiket kodlaması
 col = ['Outlet_Size','Outlet_Location_Type','Outlet_Type','Item_Fat_Content']
 test['Item_Outlet_Sales'] = 0
 combi = train.append(test)
@@ -35,7 +35,7 @@ train = combi[:train.shape[0]]
 test = combi[train.shape[0]:]
 test.drop('Item_Outlet_Sales',axis=1,inplace=True)
 
-## kimlik değişkenlerini kaldırma
+## Kimlik değişkenlerini kaldırma
 training = train.drop(['Outlet_Identifier','Item_Type','Item_Identifier'],axis=1)
 testing = test.drop(['Outlet_Identifier','Item_Type','Item_Identifier'],axis=1)
 y_train = training['Item_Outlet_Sales']
